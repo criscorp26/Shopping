@@ -5,7 +5,7 @@ using Shopping.Data.Entities;
 
 namespace Shopping.Controllers
 {
-    public class CategoriesController :Controller
+    public class CategoriesController : Controller
     {
         private readonly DataContext _context;
 
@@ -17,7 +17,7 @@ namespace Shopping.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
-                   
+
         }
 
         // GET: Countries/Create
@@ -58,7 +58,7 @@ namespace Shopping.Controllers
         }
 
 
-  
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -110,5 +110,51 @@ namespace Shopping.Controllers
             }
             return View(category);
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Category category = await _context.Categories
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Category category = await _context.Categories
+                .FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+
+            Category category = await _context.Categories.FindAsync(id);
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
