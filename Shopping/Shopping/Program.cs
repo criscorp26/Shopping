@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Shooping.Helpers;
 using Shopping.Data;
 using Shopping.Data.Entities;
 using Shopping.Helpers;
@@ -32,6 +33,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddTransient<SeedDb>();//se usa una sola vez y se destruye
 builder.Services.AddScoped<IUserHelper, UserHelper>();
+builder.Services.AddScoped<ICombosHelper, CombosHelper>();
+builder.Services.AddScoped<IBlobHelper, BlobHelper>();
+//builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 //builder.Services.AddScoped <SeedDb>(); //la mayoria usa esta se usa varias veces y se destruye al final
 //builder.Services.AddSingleton<SeedDb>();//se usa una sola vez pero no se destruye
 var app = builder.Build();
