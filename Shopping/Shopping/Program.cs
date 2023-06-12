@@ -16,14 +16,23 @@ builder .Services.AddDbContext<DataContext>(o=>
 //todo: Make strongest password
 builder.Services.AddIdentity<User, IdentityRole>(cfg =>
 {
+    cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+    cfg.SignIn.RequireConfirmedEmail = true;
+
     cfg.User.RequireUniqueEmail = true;
     cfg.Password.RequireDigit = false;
     cfg.Password.RequiredUniqueChars = 0;
     cfg.Password.RequireLowercase = false;
     cfg.Password.RequireNonAlphanumeric = false;
     cfg.Password.RequireUppercase = false;
-   // cfg.Password.RequiredLength = 10;
-}).AddEntityFrameworkStores<DataContext>();
+    cfg.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    cfg.Lockout.MaxFailedAccessAttempts = 3;
+    cfg.Lockout.AllowedForNewUsers = true;
+
+    // cfg.Password.RequiredLength = 10;
+})
+      .AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<DataContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -35,6 +44,7 @@ builder.Services.AddTransient<SeedDb>();//se usa una sola vez y se destruye
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 builder.Services.AddScoped<ICombosHelper, CombosHelper>();
 builder.Services.AddScoped<IBlobHelper, BlobHelper>();
+builder.Services.AddScoped<IMailHelper, MailHelper>();
 //builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 //builder.Services.AddScoped <SeedDb>(); //la mayoria usa esta se usa varias veces y se destruye al final
 //builder.Services.AddSingleton<SeedDb>();//se usa una sola vez pero no se destruye
