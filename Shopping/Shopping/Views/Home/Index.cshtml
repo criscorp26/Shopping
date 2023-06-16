@@ -1,10 +1,12 @@
-﻿@model IEnumerable<Shopping.Models.ProductsHomeViewModel>
+﻿@model Shopping.Models.HomeViewModel
 
-@{
-    ViewData["Title"] = "Index";
+@if (Model.Quantity > 0)
+{
+    <a asp-action="ShowCart" class="btn btn-outline-primary">Ver Carro de Compras (@Model.Quantity)</a>
 }
 
-@foreach (var item in Model)
+
+@foreach (var item in Model.Products)
 {
     <div class="row">
         @if (item.Product1 != null)
@@ -39,8 +41,8 @@
                         </p>
                     </div>
                     <div class="card_foot">
-                        <a asp-action="Details" asp-route-id="@item.Product1.Id" class="btn btn-secondary">Detalles</a>
-                        <a asp-action="Add" asp-route-id="@item.Product1.Id" class="btn btn-primary">Agregar</a>
+                        <a asp-action="Details" asp-route-id="@item.Product2.Id" class="btn btn-secondary">Detalles</a>
+                        <a asp-action="Add" asp-route-id="@item.Product2.Id" class="btn btn-primary">Agregar</a>
                     </div>
                 </div>
             </div>
@@ -58,8 +60,8 @@
                         </p>
                     </div>
                     <div class="card_foot">
-                        <a asp-action="Details" asp-route-id="@item.Product1.Id" class="btn btn-secondary">Detalles</a>
-                        <a asp-action="Add" asp-route-id="@item.Product1.Id" class="btn btn-primary">Agregar</a>
+                        <a asp-action="Details" asp-route-id="@item.Product3.Id" class="btn btn-secondary">Detalles</a>
+                        <a asp-action="Add" asp-route-id="@item.Product3.Id" class="btn btn-primary">Agregar</a>
                     </div>
                 </div>
             </div>
@@ -77,8 +79,8 @@
                         </p>
                     </div>
                     <div class="card_foot">
-                        <a asp-action="Details" asp-route-id="@item.Product1.Id" class="btn btn-secondary">Detalles</a>
-                        <a asp-action="Add" asp-route-id="@item.Product1.Id" class="btn btn-primary">Agregar</a>
+                        <a asp-action="Details" asp-route-id="@item.Product4.Id" class="btn btn-secondary">Detalles</a>
+                        <a asp-action="Add" asp-route-id="@item.Product4.Id" class="btn btn-primary">Agregar</a>
                     </div>
                 </div>
             </div>
