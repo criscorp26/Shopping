@@ -45,6 +45,7 @@ builder.Services.AddScoped<IUserHelper, UserHelper>();
 builder.Services.AddScoped<ICombosHelper, CombosHelper>();
 builder.Services.AddScoped<IBlobHelper, BlobHelper>();
 builder.Services.AddScoped<IMailHelper, MailHelper>();
+builder.Services.AddScoped<IOrdersHelper, OrdersHelper>();
 //builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 //builder.Services.AddScoped <SeedDb>(); //la mayoria usa esta se usa varias veces y se destruye al final
 //builder.Services.AddSingleton<SeedDb>();//se usa una sola vez pero no se destruye
